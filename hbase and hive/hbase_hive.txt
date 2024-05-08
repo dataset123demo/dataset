@@ -1,0 +1,26 @@
+hbase...........
+
+sudo service hbase.master start
+
+sudo service hbase.regionserver start
+
+create 'employee','personal','professional'
+
+put 'employee','1','personal:name','sam'
+put 'employee','1','personal:age','30'
+put 'employee','1','professional:salary','100000'
+put 'employee','1','professional:dept','Mumbai'
+put 'employee','2','personal:name','Peter'
+put 'employee','2','professional:salary','20000'
+put 'employee','3','personal:name','Golu'
+
+scan 'employee'
+
+
+
+hive...........
+
+create external table employee_hbase(key String, name String, age String, salary String, dept String)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+with serdeproperties("hbase.columns.mapping"=": key,personal:name, personal:age, professional:dept, professional:salary")
+tblproperties("hbase.table.name"="employee");

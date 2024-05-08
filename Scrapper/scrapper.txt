@@ -1,0 +1,34 @@
+!pip install bs4
+
+!pip install requests
+
+from bs4 import BeautifulSoup
+import bs4
+import requests
+import pandas as pd
+
+request1 = requests.get("...............")
+request1
+
+request1.content
+
+soup = bs4.BeautifulSoup(request1.text)
+soup
+
+reviews =soup.find_all('div',{'class':'a-expander-content reviewText review-text-content a-expander-partial-collapse-content'})
+for review in reviews:
+    print(review.get_text() + "\n\n")
+
+ratings =soup.find('span',{'class' : 'a-size-medium a-color-base'}).get_text();
+print(ratings)
+
+individual_ratings = soup.findAll('span',{'class' : 'a-icon-alt'});
+for indi_rating in individual_ratings:
+    print(indi_rating.get_text() + "\n")
+
+tags =soup.find('th',{'class' : 'a-color-secondary a-size-base prodDetSectionEntry'}).get_text();
+tags
+
+customer_name = soup.findAll('span',{'class':'a-profile-name'});
+for cust_name in customer_name:
+    print(cust_name.get_text() + "\n")

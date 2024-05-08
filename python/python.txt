@@ -1,0 +1,109 @@
+merged=pd.concat([df1,df2])
+
+sort=df.sort_values(by='chol', ascending=False)
+
+transpose=df.transpose()
+
+df_array=np.array(df)
+
+reshape_df=df_array.reshape(606,7)
+
+
+
+
+from sklearn.model_selection import train_test_split
+from sklearn import linear_model, metrics
+x=df[['thalach']]
+y=df[['cp']]
+
+x_train, x_test, y_train, y_test=train_test_split(x,y,test_size=0.2, random_state=1)
+
+
+
+reg=linear_model.LinearRegression()
+model=reg.fit(x_train, y_train)
+r_sq=reg.score(x_train, y_train)
+print(r_sq)
+y_pred=model.predict(x_test)
+print(y_pred)
+
+
+
+from sklearn.linear_model import LogisticRegression
+lr=LogisticRegression()
+model=lr.fit(x_train, y_train)
+y_pred=model.predict(x_test)
+print(y_pred)
+
+
+from sklearn.neighbors import KNeighborsClassifier
+knn=KNeighborsClassifier(n_neighbors=2)
+model=knn.fit(x_train, y_train)
+y_pred=model.predict(x_test)
+print(y_pred)
+
+
+from sklearn.svm import SVC
+svm = SVC(random_state=1)
+model=svm.fit(x_train, y_train)
+y_pred=model.predict(x_test)
+print(y_pred)
+
+
+from sklearn.tree import DecisionTreeClassifier
+dtc=DecisionTreeClassifier()
+model=dtc.fit(x_train, y_train)
+y_pred=model.predict(x_test)
+print(y_pred)
+
+
+from sklearn.ensemble import RandomForestClassifier
+rf=RandomForestClassifier(n_estimators=1000,random_state=1)
+model=rf.fit(x_train, y_train)
+y_pred=model.predict(x_test)
+print(y_pred)
+
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.boxplot(x=df['chol'])
+plt.title('Boxplot of Column')
+plt.show()
+
+
+sns.histplot(df['chol'], bins=10)  # Adjust the number of bins as needed
+plt.title('Histogram of Column')
+plt.xlabel('Values')
+plt.ylabel('Frequency')
+plt.show()
+
+
+import matplotlib.pyplot as plt
+
+plt.plot(df['age'], df['slope'])
+plt.xlabel('X Axis Label')
+plt.ylabel('Y Axis Label')
+plt.title('Single Line Graph')
+plt.grid(True)  # Optional: add grid lines
+plt.show()
+
+
+
+female_data = df[df['sex'] == 0]
+male_data = df[df['sex'] == 1]
+# Plotting each line
+plt.plot(female_data['age'], female_data['chol'], label='Female')
+plt.plot(male_data['age'], male_data['chol'], label='Male')
+plt.xlabel('Age')
+plt.ylabel('Cholesterol Level')
+plt.title('Cholesterol Level by Age and Gender')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+
+
+
+
+
